@@ -40,9 +40,8 @@ public class User implements UserDetails {
 
     private boolean locked = true;
 
-    private boolean disabled = true;
+    private boolean disabled =false;
 
-    @Column(nullable = true)
     private  String provider;
 
 

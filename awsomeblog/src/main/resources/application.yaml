@@ -35,16 +35,38 @@ spring:
             enable: true
         transport:
           protocol: smtp
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+              client-id: ${GOOGLE_CLIENT_ID}
+              client-secret: ${GOOGLE_CLIENT_SECRET}
+              scope:
+                - openid
+                - profile
+                - email
+              redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+          github:
+            client-id: ${GITHUB_CLIENT_ID}
+            client-secret: ${GITHUB_CLIENT_SECRET}
+            scope:
+              - read:user
+              - user:email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
 
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
+  refresh-expiration: ${JWT_REFRESH_EXPIRATION}
 
 logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
-  #jwt:
-  #  secret: ${JWT_SECRET}
-  #  expiration: ${JWT_EXPIRATION}
-  #  refresh-expiration: ${JWT_REFRESH_EXPIRATION}
-  application:
-    name: awsomeblog
+
+
+application:
+  name: awsomeblog

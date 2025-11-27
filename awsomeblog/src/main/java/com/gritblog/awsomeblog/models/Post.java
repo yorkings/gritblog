@@ -29,6 +29,7 @@ public class Post {
 
     private  String slug;
 
+
     @Enumerated(EnumType.STRING)
     private Status status= Status.DRAFTED;
 
@@ -36,6 +37,10 @@ public class Post {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     private LocalDateTime updatedAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private  User author;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

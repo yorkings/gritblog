@@ -23,6 +23,8 @@ public class UserProfile {
     @JoinColumn(name = "user_id")
     private User user;
 
+    private String avatar;
+
     private String first_name;
     private String last_name;
     private String  twitter_url;
