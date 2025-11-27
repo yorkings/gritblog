@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root{
+    /* light theme */
+    --lighttext-header:oklch(0.05 0.1 0);
+    --lighttext-subheader:oklch(from var(--lighttext-header)  calc(l+0.08) c h);
+    --lighttext-text:oklch(from var(--lighttext-header)  calc(l+0.18) c h);
+    --light-bg:linear-gradient(135deg,var(--darktext-header),var(--darktext-subheader));
+    --nav-link-light:oklch(20% 0.1 270);
+    --nav-bg-light:oklch(92% 0.005 240 /0.94);
+
+
+
+    /* dark theme */
+    --darktext-header:oklch(0.9 0 0);
+    --darktext-subheader:oklch(from var(--darktext-header) calc(l - 0.05) c h);
+    --dark-text: oklch(from var(--darktext-header) calc(l - 0.15) c h);
+    --nav-link-dark:oklch(85% 0.01 240);
+    --nav-bg-dark:oklch(25% 0.025 282);
+    --switch-dark:oklch(22.653% 0.03282 237.469) ;
+
+     --bg-dark-start: oklch(12.056% 0.02036 282.92); /* Base Dark Indigo (Center) */
+     --bg-dark-end: oklch(7.472% 0.02188 279.717);    /* Darker Indigo (Edges) */
+     --dark-gradient: linear-gradient(45deg, var(--bg-dark-start) 0%,  var(--bg-dark-end) 100%  );
+
+    
+
+    /* my fonts */
+    --font-inter: 'Inter', sans-serif;
+    --font-roboto-condensed: 'Roboto Condensed', sans-serif;
+
+    /* custom */
+    --gradient-start-accent: oklch(55% 0.12 293);
+    --gradient-end-accent: oklch(50% 0.15 284);
+    --custom-gradient-hsl: linear-gradient(120deg, var(--gradient-start-hsl) 0%, var(--gradient-end-hsl) 100%);
+
+}
+
+html.dark {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+html:not(.dark) {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+body{
+ box-sizing:border-box;
+ font-family:var(--font-roboto-condensed) "Geneva"  "Tahoma";
+
+}
+
+.theme-body{
+  height: 2rem;
+}
+
+.dark .dark-form-container::after{
+  content: "";
+  background-color: rgb(222, 245, 12);
+
+  top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+    z-index: -1; 
+    border-radius: inherit; 
+    box-shadow: 0 0 15px 5px var(--bg-dark-start); 
+    border: 2px solid var(--nav-bg-dark);
+}
+
+
+.letter-animate {
+  display: inline;
+  animation: reveal-letter 3s ease-out  1.5s infinite alternate;
+}
+
+.slide-effect{
+  animation: slidein  3s ease-in 0.3s infinite;
+}
+
+@keyframes slidein {
+   0%{
+     transform:translateX(20px);
+     opacity: 0;
+   }
+   100%{
+    transform:translateX(0);
+     opacity:1;
+   }
+}
+
+@keyframes reveal-letter {
+    0% {
+       
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+     
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
