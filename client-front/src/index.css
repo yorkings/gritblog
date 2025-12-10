@@ -5,13 +5,22 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root{
+    --scrollbar-width-size: 10px; /* Uniform width */
+    --scrollbar-border-radius: 5px;
+    --blue-400-fade:oklch(50.7% 0.165 254.624 /0.8);
+    --blue-400-faded:oklch(from var(--blue-400-fade) l c h /0.3);
+
     /* light theme */
     --lighttext-header:oklch(0.05 0.1 0);
-    --lighttext-subheader:oklch(from var(--lighttext-header)  calc(l+0.08) c h);
-    --lighttext-text:oklch(from var(--lighttext-header)  calc(l+0.18) c h);
+    --lighttext-subheader:oklch(from var(--lighttext-header)  calc(l + 0.08) c h);
+    --lighttext-text:oklch(from var(--lighttext-header)  calc(l + 0.18) c h);
     --light-bg:linear-gradient(135deg,var(--darktext-header),var(--darktext-subheader));
     --nav-link-light:oklch(20% 0.1 270);
     --nav-bg-light:oklch(92% 0.005 240 /0.94);
+
+    --scrollbar-track: var(--nav-bg-light); /* Light Gray Track */
+    --scrollbar-thumb:oklch(from var(--lighttext-header) calc(l + 0.5) c calc(h + 260) /0.7 ) ;
+    --scrollbar-border: var(--lighttext-text);
 
 
 
@@ -22,19 +31,22 @@
     --nav-link-dark:oklch(85% 0.01 240);
     --nav-bg-dark:oklch(25% 0.025 282);
     --switch-dark:oklch(22.653% 0.03282 237.469) ;
+    --dark-card:oklch(15.056% 0.02036 282.92 /0.8);
 
      --bg-dark-start: oklch(12.056% 0.02036 282.92); /* Base Dark Indigo (Center) */
      --bg-dark-end: oklch(7.472% 0.02188 279.717);    /* Darker Indigo (Edges) */
      --dark-gradient: linear-gradient(45deg, var(--bg-dark-start) 0%,  var(--bg-dark-end) 100%  );
 
-    
+    --scrollbar-track-dark: var(--lighttext-subheader); 
+    --scrollbar-thumb-dark: var(--nav-bg-dark); /* Light Gray Thumb */
+    --scrollbar-border-dark: var(--switch-dark);
 
     /* my fonts */
     --font-inter: 'Inter', sans-serif;
     --font-roboto-condensed: 'Roboto Condensed', sans-serif;
 
     /* custom */
-    --gradient-start-accent: oklch(55% 0.12 293);
+    --gradient-start-accent: oklch(43.419% 0.0774 287.897);
     --gradient-end-accent: oklch(50% 0.15 284);
     --custom-gradient-hsl: linear-gradient(120deg, var(--gradient-start-hsl) 0%, var(--gradient-end-hsl) 100%);
 
@@ -49,44 +61,84 @@ html:not(.dark) {
 body{
  box-sizing:border-box;
  font-family:var(--font-roboto-condensed) "Geneva"  "Tahoma";
-
 }
 
-.theme-body{
-  height: 2rem;
+/* scroll tracks */
+body::-webkit-scrollbar{
+   width: var(--scrollbar-width-size);
+}
+body::-webkit-scrollbar-thumb{
+  background: var(--scrollbar-thumb);
+  border-radius: var(--scrollbar-border-radius);
+  border: 1px solid var(--scrollbar-border);
+
+}
+body::-webkit-scrollbar-track{
+   background: var(--scrollbar-track);
+  border-radius: var(--scrollbar-border-radius);
 }
 
-.dark .dark-form-container::after{
-  content: "";
-  background-color: rgb(222, 245, 12);
-
-  top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-    z-index: -1; 
-    border-radius: inherit; 
-    box-shadow: 0 0 15px 5px var(--bg-dark-start); 
-    border: 2px solid var(--nav-bg-dark);
+html.dark ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track-dark); /* Directly use the dark variable */
 }
 
+html.dark ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-dark); /* Directly use the dark variable */
+    border: 1px solid var(--scrollbar-border-dark);
+}
+
+
+button:disabled{
+   position: relative;
+   opacity: 0.7;
+   color: transparent; 
+   text-indent: -9999px;
+}
+button:disabled::after {
+   content: "";
+   display: block;
+   width:2rem;
+   height: 2rem;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   border: 4px solid var(--blue-400-faded);
+   border-top: 4px solid var(--blue-400-fade); 
+   border-radius: 50%; 
+   animation: loader 1s linear infinite;
+}
+
+
+.input-group input:focus~label,.input-group input:valid~label{
+  top:0;
+  font-size: 0.7rem;
+  background:transparent;
+}
+.size-transform{
+  transition: all  1s  ease-in-out ;
+}
+.size-transform:hover{
+  transform:translateY(-2%) scale(1.25);
+}
 
 .letter-animate {
   display: inline;
   animation: reveal-letter 3s ease-out  1.5s infinite alternate;
 }
 
-.slide-effect{
-  animation: slidein  3s ease-in 0.3s infinite;
+.slide-in{
+  animation: slidein  3s ease-in 0.3s;
 }
 
 @keyframes slidein {
    0%{
-     transform:translateX(20px);
+     transform:translateX(50px);
+
      opacity: 0;
    }
    100%{
-    transform:translateX(0);
+    transform:translateX(0) translateY(0);
      opacity:1;
    }
 }
@@ -102,4 +154,9 @@ body{
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes loader{
+  0%{ transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
 }
