@@ -10,6 +10,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes"
 import Home from "./components/Home"
 import CreatePost from "./components/posts/CreatePost"
 import OAuthSuccessHandler from "./components/authentication/OauthSuccess"
+import Detail from "./components/posts/Detail"
 
 interface CurrentUser {
   id: number;
@@ -53,6 +54,7 @@ function App() {
               <Route element={<ProtectedRoutes />}>
                 <Route index element={<Home/>}/>
                 <Route path="/create/post" element={<CreatePost/>}/>
+                <Route path="/post/detail/:postId" element={<Detail/>} />
       
               </Route>
       
