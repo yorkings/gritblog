@@ -1,4 +1,4 @@
-package com.gritblog.awsomeblog.models;
+package com.gritblog.awsomeblog.DTO;
 
 import java.util.UUID;
 

@@ -38,9 +38,9 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRoles roles = UserRoles.ROLE_USER;
 
-    private boolean locked = true;
+    private boolean locked = false;
 
-    private boolean disabled =false;
+    private boolean disabled =true;
 
     private  String provider;
 
