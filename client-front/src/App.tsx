@@ -21,7 +21,7 @@ interface CurrentUser {
 function App() {
   const fetchUser = AuthStore((state) => state.fetchUser);
   const isAuthenticated = AuthStore((state) => state.isAuthenticated);
-  const loading = AuthStore((state) => state.loading);  
+  const isLoading = AuthStore((state) => state.loading);  
   useEffect(()=>{
       const acquireUser = async () => {
         
@@ -36,9 +36,13 @@ function App() {
     }
     acquireUser()
   },[fetchUser])
-  if (loading) {
-    return <div className="p-8 text-center">Loading user session...</div>;
-  }
+  if (isLoading) {
+          return (
+              <div className="min-h-screen flex justify-center items-center">
+                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+              </div>
+          );
+      }
   return(
       < main className="h-screen">
           <Router>
